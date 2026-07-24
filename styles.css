@@ -1,0 +1,213 @@
+/* ==================================================================
+   styles.css  –  Sheets Auto-Filler popup
+   ==================================================================
+   A clean, modern, Google-Material-inspired popup.  Uses CSS
+   custom properties for theming and an 8px spacing system.
+   ================================================================== */
+
+:root {
+  /* Color ramps */
+  --primary:        #1a73e8;
+  --primary-hover:  #1557b0;
+  --secondary:      #f1f3f4;
+  --secondary-hover:#e8eaed;
+  --accent:         #34a853;
+  --success:        #188038;
+  --warning:        #b06000;
+  --error:          #d93025;
+  --text:           #202124;
+  --text-muted:     #5f6368;
+  --border:         #dadce0;
+  --bg:             #ffffff;
+  --bg-soft:        #f8f9fa;
+
+  /* 8px spacing scale */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+
+  /* Radius & shadow */
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(60,64,67,.3), 0 1px 1px rgba(60,64,67,.15);
+  --font: "Segoe UI", "Roboto", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 340px;
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.app { padding: var(--sp-4); }
+
+/* ----------------------------------------------------------------
+   Header
+   ---------------------------------------------------------------- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-4);
+}
+
+.logo { display: flex; align-items: center; gap: var(--sp-2); }
+
+.logo h1 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+/* Status indicator dot */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background .25s ease;
+}
+.status-dot.busy   { background: var(--warning); animation: pulse 1s infinite; }
+.status-dot.ok     { background: var(--success); }
+.status-dot.error  { background: var(--error); }
+
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50%     { opacity: .4; }
+}
+
+/* ----------------------------------------------------------------
+   Views
+   ---------------------------------------------------------------- */
+.view { display: flex; flex-direction: column; gap: var(--sp-3); }
+.hidden { display: none !important; }
+
+.hint {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ----------------------------------------------------------------
+   Buttons
+   ---------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  height: 40px;
+  padding: 0 var(--sp-4);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background .2s ease, box-shadow .2s ease, transform .05s ease;
+}
+.btn:active { transform: scale(.98); }
+.btn:disabled { opacity: .6; cursor: default; }
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+
+.btn-secondary {
+  background: var(--secondary);
+  color: var(--text);
+}
+.btn-secondary:hover:not(:disabled) { background: var(--secondary-hover); }
+
+/* ----------------------------------------------------------------
+   Spinner
+   ---------------------------------------------------------------- */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ----------------------------------------------------------------
+   Form fields
+   ---------------------------------------------------------------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.field span { font-weight: 500; }
+
+.field input[type="text"],
+.field input[type="url"],
+.field input[type="number"] {
+  height: 36px;
+  padding: 0 var(--sp-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.field input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(26,115,232,.15);
+}
+
+.field.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--sp-2);
+  cursor: pointer;
+}
+.field.checkbox input { width: 16px; height: 16px; cursor: pointer; }
+
+.row {
+  display: flex;
+  gap: var(--sp-2);
+}
+.row .field { flex: 1; }
+.row .btn { flex: 1; }
+
+/* ----------------------------------------------------------------
+   Messages
+   ---------------------------------------------------------------- */
+.message {
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid transparent;
+}
+.message.success {
+  background: #e6f4ea;
+  color: var(--success);
+  border-color: #ceead6;
+}
+.message.error {
+  background: #fce8e6;
+  color: var(--error);
+  border-color: #fad2cf;
+}
+.message.info {
+  background: #e8f0fe;
+  color: var(--primary);
+  border-color: #d2e3fc;
+}

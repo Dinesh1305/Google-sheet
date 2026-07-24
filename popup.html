@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sheets Auto-Filler</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="18" height="18" rx="3" fill="#1a73e8"/>
+          <path d="M7 8h10M7 12h10M7 16h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h1>Sheets Auto-Filler</h1>
+      </div>
+      <span id="statusIndicator" class="status-dot" title="Idle"></span>
+    </header>
+
+    <!-- Main view -->
+    <main id="mainView" class="view">
+      <p class="hint">
+        Click <strong>Fill Sheet</strong> to extract data from this page and
+        append it to the next empty row of your open Google Sheet.
+      </p>
+
+      <button id="fillBtn" class="btn btn-primary">
+        <span class="btn-label">Fill Sheet</span>
+        <span id="spinner" class="spinner hidden"></span>
+      </button>
+
+      <button id="settingsBtn" class="btn btn-secondary">Settings</button>
+
+      <div id="message" class="message hidden"></div>
+    </main>
+
+    <!-- Settings view -->
+    <section id="settingsView" class="view hidden">
+      <h2>Settings</h2>
+
+      <label class="field">
+        <span>Spreadsheet URL</span>
+        <input id="spreadsheetUrl" type="url" placeholder="https://docs.google.com/spreadsheets/d/…" />
+      </label>
+
+      <div class="row">
+        <label class="field">
+          <span>Starting column</span>
+          <input id="startingColumn" type="text" maxlength="3" placeholder="A" />
+        </label>
+        <label class="field">
+          <span>Starting row</span>
+          <input id="startingRow" type="number" min="1" placeholder="1" />
+        </label>
+      </div>
+
+      <label class="field checkbox">
+        <input id="autoFindNextEmptyRow" type="checkbox" />
+        <span>Auto-find next empty row</span>
+      </label>
+
+      <label class="field">
+        <span>Delay between keystrokes (ms)</span>
+        <input id="keystrokeDelay" type="number" min="0" max="500" placeholder="25" />
+      </label>
+
+      <label class="field checkbox">
+        <input id="debugLogs" type="checkbox" />
+        <span>Enable debug logs</span>
+      </label>
+
+      <div class="row">
+        <button id="saveSettingsBtn" class="btn btn-primary">Save</button>
+        <button id="cancelSettingsBtn" class="btn btn-secondary">Cancel</button>
+      </div>
+
+      <div id="settingsMessage" class="message hidden"></div>
+    </section>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
